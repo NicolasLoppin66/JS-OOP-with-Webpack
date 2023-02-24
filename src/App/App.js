@@ -1,6 +1,9 @@
 // Import de class
 import { Car } from "./Entities/Car";
 
+// Import du service
+import { CarService } from "./Services/CarService";
+
 class App {
     /**
      * <ul> Pour la list des voitures
@@ -47,8 +50,12 @@ class App {
      * Chargement des données des voitures
      */
     loadCars() {
-        const test = new Car({ id: 2, label: 'hey', brand: { id: 3, label: 'test' } });
-        console.log(test);
+        const service = CarService();
+        let cars = service.readAll();
+        console.log(cars);
+
+        let car5 = service.readById(5);
+        console.log(car5);
     }
 }
 
