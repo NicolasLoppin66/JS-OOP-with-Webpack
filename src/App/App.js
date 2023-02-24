@@ -1,3 +1,6 @@
+// Import du style
+import '../assets/style.css';
+
 // Import de class
 import { Car } from "./Entities/Car";
 
@@ -11,9 +14,19 @@ class App {
     elCarList;
 
     /**
+     * <div> de detail pour un voiture
+     */
+    elDetailsPanel;
+
+    /**
      * Titre de la page
      */
     title;
+
+    /**
+     * Service pour Car
+     */
+    CarService;
 
     /**
      * Démarrage de l'application
@@ -22,6 +35,9 @@ class App {
         console.log('App démarrer ...');
 
         this.title = 'Store SuperCars';
+
+        // Initialisation du service de donnée
+        this.CarService = new CarService();
 
         this.domInit();
         this.loadCars();
@@ -38,24 +54,34 @@ class App {
         const elH1Tag = document.createElement('h1');
         elH1Tag.textContent = this.title;
 
+        // Création du <div class="cols">
+        const elDivCols = document.createElement('div');
+        elDivCols.classList.add('cols');
+
         // Création de la liste <ul> pour les voitures
         // Stockage dans une propriété de App
         this.elCarList = document.createElement('ul');
 
+        // Création du details <div> pour les voitures
+        // Stockage dans une propriété de App
+        this.elDetailsPanel = document.createElement('div');
+
+        // Ajout de <ul> et <div> dans <div class="cols">
+        elDivCols.append(this.elCarList, this.elDetailsPanel);
+
         // Ajout du DOM a <body>
-        document.body.append(elH1Tag, this.elCarList);
+        document.body.append(elH1Tag, elDivCols);
     }
 
     /**
-     * Chargement des données des voitures
+     * Chargement de la liste des voitures
      */
     loadCars() {
-        const service = CarService();
-        let cars = service.readAll();
-        console.log(cars);
+        const data = this.CarService.readAll();
 
-        let car5 = service.readById(5);
-        console.log(car5);
+        for (let car of data) {
+            this.elCarList.append(car.getDOMForList());
+        }
     }
 }
 

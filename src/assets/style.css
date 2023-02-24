@@ -1,0 +1,12 @@
+.cols {
+    display: flex;
+}
+
+.cols > ul {
+    flex: 0 0 400px;
+}
+
+.cols > div {
+    background-color: #ccc;
+    flex-grow: 1;
+}

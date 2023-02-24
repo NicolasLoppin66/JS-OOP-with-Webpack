@@ -12,20 +12,6 @@ export class Car extends LabelEntity {
     brand;
     price;
 
-    // ### Pour la demo de get et set
-    // Propriété privé
-    // #paint;
-
-    // get color() {
-    //     return this.#paint;
-    // }
-
-    // set color(val) {
-    //     console.log(`Tu veux une voiture ${val}, bien tu l'auras en violet :P`);
-    //     this.#paint = 'violet'
-    // }
-    // ###
-
     // Surcharge du construteur parent
     constructor(jsonData) {
         // Appelle du constructeur parent(PHP: Parent::__construct())
@@ -36,8 +22,6 @@ export class Car extends LabelEntity {
         this.brand = new Brand(jsonData.brand);
         this.price = jsonData.price;
 
-        // this.#paint
-
         Car.counter++;
     }
 
@@ -46,7 +30,21 @@ export class Car extends LabelEntity {
         return `${Car.counter} Car sont sorties d'usine`;
     }
 
+    /**
+     * Méthode pour récupérer le prix taxé
+     * @returns price
+     */
     getTaxePrice() {
         return this.price * 1.2;
+    }
+
+    /**
+     * HTML pour la liste
+     */
+    getDOMForList() {
+        const elLi = document.createElement('li');
+        elLi.innerText = `${this.brand.label} - ${this.price.toString().replace('.', ',')} €`;
+
+        return elLi;
     }
 }
