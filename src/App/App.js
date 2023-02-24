@@ -77,12 +77,38 @@ class App {
      * Chargement de la liste des voitures
      */
     loadCars() {
+        // Récupération des données
         const data = this.CarService.readAll();
 
+        // Génération du DOM de la liste
         for (let car of data) {
-            this.elCarList.append(car.getDOMForList());
+            // Récupération du DOM de la liste
+            const elCar = car.getDOMForList();
+
+            // Gestion du clic sur une voiture
+            elCar.addEventListener('click', this.handlerCarClick.bind(this));
+
+            // Ajout de la voiture dans la liste
+            this.elCarList.append(elCar);
         }
     }
+
+    /**
+     * Gestionnaire d'evenement du clic sur la liste sur une voiture
+     */
+    handlerCarClick(evt) {
+        const elLi = evt.currentTarget;
+
+        // On enlève la class active a tous les <li>
+        for (let li of elLi.parentElement.children)
+            li.classList.remove('active');
+
+        // On met la class .active a l'element <li> cliquer
+        elLi.classList.add('active');
+
+        // TODO: Afficher le détail dans le elDetailsPanel 
+    }
+
 }
 
 const app = new App();

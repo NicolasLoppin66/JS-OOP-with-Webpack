@@ -1,12 +1,25 @@
 .cols {
-    display: flex;
+  display: flex;
 }
 
 .cols > ul {
-    flex: 0 0 400px;
+  flex: 0 0 200px;
+}
+
+.cols > ul > li {
+  cursor: pointer;
+  padding: 5px;
+}
+
+.cols > ul > li.active {
+  background-color: #ccc;
+}
+
+.cols > ul > li:hover {
+  background-color: #3776ab;
 }
 
 .cols > div {
-    background-color: #ccc;
-    flex-grow: 1;
+  background-color: #ccc;
+  flex-grow: 1;
 }
